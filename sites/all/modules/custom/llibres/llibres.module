@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ *   My cool llibres Angular App module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function llibres_menu() {
+  $items['llibres'] = array(
+    'title' => 'All llibres',
+    'page callback' => 'llibres_page',
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function llibres_theme() {
+  return array(
+    'all_llibres' => array(
+      'template' => 'all-llibres',
+    ),
+  );
+}
+
+/**
+ * llibres page callback
+ */
+function llibres_page() {
+  // Set the path
+  $path = drupal_get_path('module', 'llibres');
+
+  // Load angular
+  drupal_add_library('angularjs', 'angularjs');
+
+  // Load the app
+  drupal_add_js($path . '/js/llibres.gen.js');
+
+  drupal_add_css($path . '/css/bootstrap.css');
+
+  // Return the HTML template
+  return theme('all_llibres');
+}
